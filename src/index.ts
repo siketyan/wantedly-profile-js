@@ -16,7 +16,7 @@ export class Client {
   }
 
   async fetchUserById<U extends UserId>(id: UserId): Promise<User<U>> {
-    return await this.executeQuery(userByIdQuery, {
+    return await this.executeQuery('userById', userByIdQuery, {
       userId: id
     })
   }

@@ -175,10 +175,8 @@ export type User<U extends UserId> = GqlType<'User', {
   profile: Profile<U>
 }>
 
-export interface QueryResponse<T, K extends string> {
-  data: {
-    [key in K]: T
-  }
+export type QueryResponse<T, K extends string> = {
+  [key in K]: T
 }
 
 export type UserByIdResponse<U extends UserId> = QueryResponse<User<U>, 'userById'>

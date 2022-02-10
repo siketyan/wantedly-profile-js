@@ -77,9 +77,9 @@ fragment lifeStoryExperiencesChapter on ProfilePageLifeStoryExperiencesChapter {
         uuid
         company {
           ... on Company {
-          \tslug
-          \tavatarUrl
-        \t}
+            slug
+            avatarUrl
+          }
           __typename
         }
         companyName
@@ -126,8 +126,7 @@ fragment lifeStoryExperiencesChapter on ProfilePageLifeStoryExperiencesChapter {
       }
       __typename
     }
-}
-ards {
+    cards {
       ... on ProfilePageProfileItemCard {
         profileItemUuid
         profileItemType
@@ -224,6 +223,6 @@ export const exec = (config: Config) => async <
   T, N extends string,
   R extends QueryResponse<T, N>,
   V extends Variables,
->(q: Query<N, R, V>, v: V): Promise<T> => {
-  return await request(config.url, q, v, config.headers)
+>(n: N, q: Query<N, R, V>, v: V): Promise<T> => {
+  return ((await request(config.url, q, v, config.headers)) as R)[n]
 }
