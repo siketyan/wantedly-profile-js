@@ -1,12 +1,11 @@
 # wantedly-profile-js
 🚀 Easy and strongly-typed Wantedly profiles fetcher.
 
-<!--
 ## 📦 Installation
+Make sure you logged into GitHub Packages Registry from (p)npm.
 ```shell
 pnpm install @siketyan/wantedly-profile-js
 ```
--->
 
 ## ✨ Usage
 ```ts
