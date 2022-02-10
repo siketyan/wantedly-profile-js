@@ -15,22 +15,28 @@
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
   "types": "./esm/index.d.ts",
-  "files": ["cjs", "esm"],
+  "files": [
+    "cjs",
+    "esm"
+  ],
   "scripts": {
     "lint": "ts-standard",
     "fix": "ts-standard --fix",
     "build": "run-s build:esm build:cjs",
     "build:esm": "tsc -p ./tsconfig.esm.json",
-    "build:cjs": "tsc -p ./tsconfig.cjs.json"
+    "build:cjs": "tsc -p ./tsconfig.cjs.json",
+    "test": "ts-node ./tests/index.ts"
   },
   "dependencies": {
     "graphql-request": "^4.0.0"
   },
   "devDependencies": {
+    "@types/node": "^17.0.17",
     "@typescript-eslint/parser": "^4.33.0",
     "eslint": "^7.32.0",
     "graphql": "^16.3.0",
     "npm-run-all": "^4.1.5",
+    "ts-node": "^10.5.0",
     "ts-standard": "^11.0.0",
     "tslib": "^2.3.1",
     "typescript": "^4.5.5"
