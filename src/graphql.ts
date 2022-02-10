@@ -224,5 +224,5 @@ export const exec = (config: Config) => async <
   R extends QueryResponse<T, N>,
   V extends Variables,
 >(n: N, q: Query<N, R, V>, v: V): Promise<T> => {
-  return ((await request(config.url, q, v, config.headers)) as R)[n]
+  return ((await request(config.url, q, v, config.headers)))[n]
 }

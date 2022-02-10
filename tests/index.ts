@@ -1,5 +1,5 @@
-import fetchUserById from './fetch-user-by-id';
+import fetchUserById from './fetch-user-by-id'
 
-(async () => {
+void (async () => {
   await fetchUserById()
 })()

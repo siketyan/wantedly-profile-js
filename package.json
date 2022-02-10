@@ -43,5 +43,11 @@
   },
   "peerDependencies": {
     "graphql": "[14, 17)"
+  },
+  "ts-standard": {
+    "project": [
+      "./tsconfig.json",
+      "./tests/tsconfig.json"
+    ]
   }
 }

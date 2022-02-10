@@ -1,4 +1,4 @@
-import { equal } from 'assert';
+import { equal } from 'assert'
 import { env } from 'process'
 
 import { Client } from '../src'
@@ -6,14 +6,14 @@ import { Client } from '../src'
 // https://www.wantedly.com/siketyan
 const userId = '79008489'
 
-export default async () => {
-  const token = env['WANTEDLY_GQL_TOKEN']
-  if (!token) {
+export default async (): Promise<void> => {
+  const token = env.WANTEDLY_GQL_TOKEN
+  if (token === undefined || token === null || token === '') {
     throw Error('The environment variable WANTEDLY_GQL_TOKEN is not set or empty.')
   }
 
   const client = Client.default(token)
-  const user = await client.fetchUserById(userId);
+  const user = await client.fetchUserById(userId)
 
   console.log(user)
 
