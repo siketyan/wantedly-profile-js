@@ -60,6 +60,7 @@ jobs:
         with:
           node-version: 16
           cache: pnpm
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Version
         run: pnpm version ${TAG_NAME:1}
