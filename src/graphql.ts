@@ -12,41 +12,30 @@ query ($userId: String!) {
     profile {
       userId
       name
-      slug
-      avatarUrl
-      shortDescription
-      introduction
       nameParts {
-        firstName
-        lastName
-        __typename
+        ...NameParts
       }
+      namePartsEn {
+        ...NameParts
+      }
+      namePartsPhonetic {
+        ...NameParts
+      }
+      slug
+      tagline
+      introduction
+      shortDescription
+      location
+      avatarUrl
+      rawAvatarUrl
       coverImageUrl
       rawCoverImageUrl
-      location
       profilePageLinkCollection {
-        externalLinks {
-          id
-          url
-          faviconUrl
-          displayLabel
-          __typename
-        }
-        socialProfiles {
-          provider
-          isConnected
-          profileUrl
-          __typename
-        }
-        displayedSocialProviders
-        externalLinksDisplayed
-        __typename
+        ...LinkCollection
       }
-      tagline
       profilePageLifeStory {
         chapters {
-          ...lifeStoryExperiencesChapter
-          __typename
+          ...LifeStoryExperiencesChapter
         }
         __typename
       }
@@ -55,6 +44,7 @@ query ($userId: String!) {
           ...SkillAppendix
           ...ProfileItemAppendix
         }
+        __typename
       }
       languageSkills {
         id
@@ -68,7 +58,36 @@ query ($userId: String!) {
   }
 }
 
-fragment lifeStoryExperiencesChapter on ProfilePageLifeStoryExperiencesChapter {
+fragment NameParts on ProfileNameParts {
+  firstName
+  lastName
+  __typename
+}
+
+fragment YearMonth on YearMonth {
+  year
+  month
+  __typename
+}
+
+fragment LinkCollection on ProfilePageLinkCollection {
+  externalLinks {
+    id
+    url
+    faviconUrl
+    displayLabel
+    __typename
+  }
+  socialProfiles {
+    provider
+    isConnected
+    profileUrl
+    __typename
+  }
+  __typename
+}
+
+fragment LifeStoryExperiencesChapter on ProfilePageLifeStoryExperiencesChapter {
   sections {
     experienceUuid
     experienceType
@@ -111,31 +130,16 @@ fragment lifeStoryExperiencesChapter on ProfilePageLifeStoryExperiencesChapter {
         displayNameAndPositionSlashed
         duration {
           start {
-            year
-            month
-            __typename
+            ...YearMonth
           }
           end {
-            year
-            month
-            __typename
+            ...YearMonth
           }
           __typename
         }
         __typename
       }
       __typename
-    }
-    cards {
-      ... on ProfilePageProfileItemCard {
-        profileItemUuid
-        profileItemType
-        profileItem {
-          ...AwardProfileItem
-          ...CertificationProfileItem
-        }
-        __typename
-      }
     }
     __typename
   }
@@ -193,9 +197,7 @@ fragment AwardProfileItem on Award {
   description
   url
   receiveTime {
-    year
-    month
-    __typename
+    ...YearMonth
   }
   __typename
 }
@@ -206,9 +208,7 @@ fragment CertificationProfileItem on Certification {
   description
   url
   acquireTime {
-    year
-    month
-    __typename
+    ...YearMonth
   }
   __typename
 }
