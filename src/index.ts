@@ -10,7 +10,7 @@ export class Client {
   private readonly executeQuery: ReturnType<typeof exec>
 
   constructor (
-    config: Config
+    private readonly config: Config
   ) {
     this.executeQuery = exec(config.graphql)
   }
@@ -21,13 +21,23 @@ export class Client {
     })
   }
 
-  static default (token: string): Client {
+  withAuthentication (token: string): Client {
     return new Client({
+      ...this.config,
       graphql: {
-        url: 'https://graphql-gateway.wantedly.com/graphql',
+        ...this.config.graphql,
         headers: {
+          ...this.config.graphql.headers,
           Authorization: `Bearer ${token}`
         }
+      }
+    })
+  }
+
+  static default (): Client {
+    return new Client({
+      graphql: {
+        url: 'https://graphql-gateway.wantedly.com/graphql'
       }
     })
   }

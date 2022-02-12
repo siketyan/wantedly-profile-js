@@ -11,8 +11,8 @@ pnpm install @siketyan/wantedly-profile-js
 ```ts
 import { Client } from '@siketyan/wantedly-profile-js'
 
-const token = 'YOUR_JWT_TOKEN'
-const client = Client.default(token)
+const client = Client.default()
+// Optionally add your authn: client.authenticated(token)
 
 console.log(await client.fetchUserById('YOUR_USER_ID'))
 ```
