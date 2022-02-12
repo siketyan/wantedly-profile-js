@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-20.04
     needs:
       - build
-    # if: ${{ github.event_name == 'release' }}
+    if: ${{ github.event_name == 'release' }}
     steps:
       - uses: actions/download-artifact@v2
         with:
@@ -62,6 +62,11 @@ jobs:
           cache: pnpm
           registry-url: 'https://npm.pkg.github.com'
           scope: '@siketyan'
+
+      - name: Version
+        run: pnpm version ${TAG_NAME:1}
+        env:
+          TAG_NAME: ${{ github.event.release.tag_name }}
 
       - name: Publish
         run: pnpm publish
