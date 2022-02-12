@@ -38,7 +38,7 @@ export type SocialProfile = GqlType<'SocialProfile', {
   profileUrl: string
 }>
 
-export type PageLinkCollection = GqlType<'ProfilePageLinkCollection', {
+export type LinkCollection = GqlType<'ProfilePageLinkCollection', {
   externalLinks: Array<ExternalLink<ExternalLinkId>>
   socialProfiles: SocialProfile[]
 }>
@@ -164,7 +164,7 @@ export type Profile<U extends UserId> = GqlType<'Profile', {
   rawAvatarUrl: AvatarImageUrl<U>
   coverImageUrl: CoverImageUrl<U>
   rawCoverImageUrl: CoverImageUrl<U>
-  profilePageLinkCollection: PageLinkCollection
+  profilePageLinkCollection: LinkCollection
   profilePageLifeStory: LifeStory
   profilePageAppendix: Appendix
   languageSkills: Array<LanguageSkill<LanguageSkillId>>
