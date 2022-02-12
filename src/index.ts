@@ -1,6 +1,9 @@
 import { User, UserId } from './model'
 import { Config as GqlConfig, exec, userByIdQuery } from './graphql'
 
+export * from './model'
+export * from './graphql'
+
 export interface Config {
   graphql: GqlConfig
 }
