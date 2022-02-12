@@ -1,7 +1,10 @@
 name: TypeScript
 
 on:
-  - push
+  push: ~
+  release:
+    types:
+      - published
 
 jobs:
   build:
@@ -23,3 +26,38 @@ jobs:
 
       - name: Build
         run: pnpm build
+
+      - name: Test
+        run: pnpm test
+
+      - uses: actions/upload-artiface@v2
+        with:
+          name: dist
+          path: |
+            cjs/
+            esm/
+            .npmrc
+            package.json
+            pnpm-lock.yaml
+            LICENCE.md
+            README.md
+
+  publish:
+    runs-on: ubuntu-20.04
+    # if: ${{ github.event_name == 'release' }}
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16
+          cache: pnpm
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@siketyan'
+
+      - name: Publish
+        run: pnpm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
