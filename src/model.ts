@@ -78,17 +78,18 @@ export type Education<E extends ExperienceUuid> = GqlType<'Education', Experienc
   description: string
 }>
 
-export type Experience<E extends ExperienceUuid> = WorkExperience<E> | Education<E>
-
 export type ExperienceType = 'WORK_EXPERIENCE' | 'EDUCATION'
-export type LifeStoryChapterSection = GqlType<'ProfilePageLifeStoryExperienceSection', {
+export type Experience<E extends ExperienceUuid, T extends ExperienceType> =
+  T extends 'WORK_EXPERIENCE' ? WorkExperience<E> : Education<E>
+
+export type LifeStoryChapterSection<T extends ExperienceType> = GqlType<'ProfilePageLifeStoryExperienceSection', {
   experienceUuid: ExperienceUuid
-  experienceType: ExperienceType
-  experience: Experience<ExperienceUuid>
+  experienceType: T
+  experience: Experience<ExperienceUuid, T>
 }>
 
 export type LifeStoryChapter = GqlType<'ProfilePageLifeStoryExperienceChapter', {
-  sections: LifeStoryChapterSection[]
+  sections: Array<LifeStoryChapterSection<ExperienceType>>
 }>
 
 export type LifeStory = GqlType<'ProfilePageLifeStory', {
