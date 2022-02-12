@@ -30,7 +30,7 @@ jobs:
       - name: Test
         run: pnpm test
 
-      - uses: actions/upload-artiface@v2
+      - uses: actions/upload-artifact@v2
         with:
           name: dist
           path: |
@@ -44,6 +44,8 @@ jobs:
 
   publish:
     runs-on: ubuntu-20.04
+    needs:
+      - build
     # if: ${{ github.event_name == 'release' }}
     steps:
       - uses: actions/download-artifact@v2
