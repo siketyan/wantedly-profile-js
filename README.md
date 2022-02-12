@@ -2,14 +2,13 @@
 🚀 Easy and strongly-typed Wantedly profiles fetcher.
 
 ## 📦 Installation
-Make sure you logged into GitHub Packages Registry from (p)npm.
 ```shell
-pnpm install @siketyan/wantedly-profile-js
+pnpm add wantedly-profile
 ```
 
 ## ✨ Usage
 ```ts
-import { Client } from '@siketyan/wantedly-profile-js'
+import { Client } from 'wantedly-profile'
 
 const client = Client.default()
 // Optionally add your authn: client.authenticated(token)
