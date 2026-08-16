@@ -1,4 +1,4 @@
-import { equal } from 'assert'
+import { equal } from 'node:assert'
 
 import { Client } from '../src'
 

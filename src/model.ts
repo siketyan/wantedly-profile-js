@@ -19,44 +19,65 @@ export type TokenizedUrl<U extends WantedlyUrl<Path>, T extends Token> = `${U}?t
 export type AvatarImageUrl<U extends UserId> = TokenizedUrl<UsersUrl<U, 'avatar'>, Token>
 export type CoverImageUrl<U extends UserId> = TokenizedUrl<UsersUrl<U, 'cover_image'>, Token>
 
-export type NameParts = GqlType<'ProfileNameParts', {
-  firstName: string
-  lastName: string
-}>
+export type NameParts = GqlType<
+  'ProfileNameParts',
+  {
+    firstName: string
+    lastName: string
+  }
+>
 
-export type ExternalLink<E extends ExternalLinkId> = GqlType<'ProfileExternalLink', {
-  id: E
-  url: string
-  faviconUrl?: string
-  displayLabel: string
-}>
+export type ExternalLink<E extends ExternalLinkId> = GqlType<
+  'ProfileExternalLink',
+  {
+    id: E
+    url: string
+    faviconUrl?: string
+    displayLabel: string
+  }
+>
 
 export type SocialProfileProvider = 'TWITTER' | 'FACEBOOK' | 'LINKEDIN' | 'GITHUB' | 'GOOGLE' | 'APPLE'
-export type SocialProfile = GqlType<'SocialProfile', {
-  provider: SocialProfileProvider
-  isConnected: boolean
-  profileUrl: string
-}>
+export type SocialProfile = GqlType<
+  'SocialProfile',
+  {
+    provider: SocialProfileProvider
+    isConnected: boolean
+    profileUrl: string
+  }
+>
 
-export type LinkCollection = GqlType<'ProfilePageLinkCollection', {
-  externalLinks: Array<ExternalLink<ExternalLinkId>>
-  socialProfiles: SocialProfile[]
-}>
+export type LinkCollection = GqlType<
+  'ProfilePageLinkCollection',
+  {
+    externalLinks: Array<ExternalLink<ExternalLinkId>>
+    socialProfiles: SocialProfile[]
+  }
+>
 
-export type Company = GqlType<'Company', {
-  slug: Slug
-  avatarUrl: string
-}>
+export type Company = GqlType<
+  'Company',
+  {
+    slug: Slug
+    avatarUrl: string
+  }
+>
 
-export type YearMonth = GqlType<'YearMonth', {
-  year: number
-  month: number
-}>
+export type YearMonth = GqlType<
+  'YearMonth',
+  {
+    year: number
+    month: number
+  }
+>
 
-export type Duration = GqlType<'YearMonthDuration', {
-  start: YearMonth
-  end?: YearMonth
-}>
+export type Duration = GqlType<
+  'YearMonthDuration',
+  {
+    start: YearMonth
+    end?: YearMonth
+  }
+>
 
 export interface ExperienceBase<E extends ExperienceUuid> {
   uuid: E
@@ -64,49 +85,71 @@ export interface ExperienceBase<E extends ExperienceUuid> {
 }
 
 export type EmploymentType = 'FULL_TIME' | 'PART_TIME' | 'INTERNSHIP'
-export type WorkExperience<E extends ExperienceUuid> = GqlType<'WorkExperience', ExperienceBase<E> & {
-  company: Company
-  companyName: string
-  description: string
-  position: string
-  employmentType: EmploymentType
-}>
+export type WorkExperience<E extends ExperienceUuid> = GqlType<
+  'WorkExperience',
+  ExperienceBase<E> & {
+    company: Company
+    companyName: string
+    description: string
+    position: string
+    employmentType: EmploymentType
+  }
+>
 
-export type Education<E extends ExperienceUuid> = GqlType<'Education', ExperienceBase<E> & {
-  schoolName: string
-  major: string
-  description: string
-}>
+export type Education<E extends ExperienceUuid> = GqlType<
+  'Education',
+  ExperienceBase<E> & {
+    schoolName: string
+    major: string
+    description: string
+  }
+>
 
 export type ExperienceType = 'WORK_EXPERIENCE' | 'EDUCATION'
-export type Experience<E extends ExperienceUuid, T extends ExperienceType> =
-  T extends 'WORK_EXPERIENCE' ? WorkExperience<E> : Education<E>
+export type Experience<E extends ExperienceUuid, T extends ExperienceType> = T extends 'WORK_EXPERIENCE'
+  ? WorkExperience<E>
+  : Education<E>
 
-export type LifeStoryChapterSection<T extends ExperienceType> = GqlType<'ProfilePageLifeStoryExperienceSection', {
-  experienceUuid: ExperienceUuid
-  experienceType: T
-  experience: Experience<ExperienceUuid, T>
-}>
+export type LifeStoryChapterSection<T extends ExperienceType> = GqlType<
+  'ProfilePageLifeStoryExperienceSection',
+  {
+    experienceUuid: ExperienceUuid
+    experienceType: T
+    experience: Experience<ExperienceUuid, T>
+  }
+>
 
-export type LifeStoryChapter = GqlType<'ProfilePageLifeStoryExperienceChapter', {
-  sections: Array<LifeStoryChapterSection<ExperienceType>>
-}>
+export type LifeStoryChapter = GqlType<
+  'ProfilePageLifeStoryExperienceChapter',
+  {
+    sections: Array<LifeStoryChapterSection<ExperienceType>>
+  }
+>
 
-export type LifeStory = GqlType<'ProfilePageLifeStory', {
-  chapters: LifeStoryChapter[]
-}>
+export type LifeStory = GqlType<
+  'ProfilePageLifeStory',
+  {
+    chapters: LifeStoryChapter[]
+  }
+>
 
-export type SkillEndorsement = GqlType<'SkillEndorsement', {
-  enabled: boolean
-  done: boolean
-  count: number
-}>
+export type SkillEndorsement = GqlType<
+  'SkillEndorsement',
+  {
+    enabled: boolean
+    done: boolean
+    count: number
+  }
+>
 
-export type Skill<S extends SkillId> = GqlType<'Skill', {
-  id: S
-  name: string
-  endorsement: SkillEndorsement
-}>
+export type Skill<S extends SkillId> = GqlType<
+  'Skill',
+  {
+    id: S
+    name: string
+    endorsement: SkillEndorsement
+  }
+>
 
 export interface ProfileItemBase<P extends ProfileItemUuid> {
   uuid: P
@@ -115,14 +158,20 @@ export interface ProfileItemBase<P extends ProfileItemUuid> {
   url: string
 }
 
-export type Award<A extends AwardUuid> = GqlType<'Award', ProfileItemBase<A> & {
-  experienceUuid: ExperienceUuid
-  receiveTime: YearMonth
-}>
+export type Award<A extends AwardUuid> = GqlType<
+  'Award',
+  ProfileItemBase<A> & {
+    experienceUuid: ExperienceUuid
+    receiveTime: YearMonth
+  }
+>
 
-export type Certification<C extends CertificationUuid> = GqlType<'Certification', ProfileItemBase<C> & {
-  acquireTime: YearMonth
-}>
+export type Certification<C extends CertificationUuid> = GqlType<
+  'Certification',
+  ProfileItemBase<C> & {
+    acquireTime: YearMonth
+  }
+>
 
 export type ProfileItem<P extends ProfileItemUuid> = Award<P> | Certification<P>
 
@@ -130,51 +179,69 @@ export interface AppendixCategoryBase {
   title: string
 }
 
-export type SkillAppendix = GqlType<'ProfilePageSkillAppendix', AppendixCategoryBase & {
-  skills: Array<Skill<SkillId>>
-}>
+export type SkillAppendix = GqlType<
+  'ProfilePageSkillAppendix',
+  AppendixCategoryBase & {
+    skills: Array<Skill<SkillId>>
+  }
+>
 
-export type ProfileItemAppendix = GqlType<'ProfilePageCertificationAppendix', AppendixCategoryBase & {
-  profileItems: Array<ProfileItem<ProfileItemUuid>>
-}>
+export type ProfileItemAppendix = GqlType<
+  'ProfilePageCertificationAppendix',
+  AppendixCategoryBase & {
+    profileItems: Array<ProfileItem<ProfileItemUuid>>
+  }
+>
 
 export type AppendixCategory = SkillAppendix | ProfileItemAppendix
-export type Appendix = GqlType<'ProfilePageProfileItemAppendix', {
-  categories: AppendixCategory[]
-}>
+export type Appendix = GqlType<
+  'ProfilePageProfileItemAppendix',
+  {
+    categories: AppendixCategory[]
+  }
+>
 
 export type LanguageSkillLevel = 'BUSINESS' | 'NATIVE' | 'EVERYDAY'
-export type LanguageSkill<L extends LanguageSkillId> = GqlType<'LanguageSkill', {
-  id: L
-  name: string
-  level: LanguageSkillLevel
-}>
+export type LanguageSkill<L extends LanguageSkillId> = GqlType<
+  'LanguageSkill',
+  {
+    id: L
+    name: string
+    level: LanguageSkillLevel
+  }
+>
 
-export type Profile<U extends UserId> = GqlType<'Profile', {
-  userId: U
-  name: string
-  nameParts: NameParts
-  namePartsEn: NameParts
-  namePartsPhonetic: NameParts
-  slug: Slug
-  tagline: string
-  introduction: string
-  shortDescription: string
-  location: string
-  avatarUrl: AvatarImageUrl<U>
-  rawAvatarUrl: AvatarImageUrl<U>
-  coverImageUrl: CoverImageUrl<U>
-  rawCoverImageUrl: CoverImageUrl<U>
-  profilePageLinkCollection: LinkCollection
-  profilePageLifeStory: LifeStory
-  profilePageAppendix: Appendix
-  languageSkills: Array<LanguageSkill<LanguageSkillId>>
-}>
+export type Profile<U extends UserId> = GqlType<
+  'Profile',
+  {
+    userId: U
+    name: string
+    nameParts: NameParts
+    namePartsEn: NameParts
+    namePartsPhonetic: NameParts
+    slug: Slug
+    tagline: string
+    introduction: string
+    shortDescription: string
+    location: string
+    avatarUrl: AvatarImageUrl<U>
+    rawAvatarUrl: AvatarImageUrl<U>
+    coverImageUrl: CoverImageUrl<U>
+    rawCoverImageUrl: CoverImageUrl<U>
+    profilePageLinkCollection: LinkCollection
+    profilePageLifeStory: LifeStory
+    profilePageAppendix: Appendix
+    languageSkills: Array<LanguageSkill<LanguageSkillId>>
+  }
+>
 
-export type User<U extends UserId> = GqlType<'User', {
-  id: U
-  profile: Profile<U>
-}>
+export type User<U extends UserId> = GqlType<
+  'User',
+  {
+    id: U
+    profile: Profile<U>
+  }
+>
 
 export type QueryResponse<T, K extends string> = {
   [key in K]: T

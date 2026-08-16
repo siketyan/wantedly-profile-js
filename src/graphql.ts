@@ -1,11 +1,9 @@
-import { QueryResponse, UserByIdResponse, UserId } from './model'
-import request, { Variables } from 'graphql-request'
+import { request, type Variables } from 'graphql-request'
+import type { QueryResponse, UserByIdResponse, UserId } from './model'
 
-// @ts-expect-error
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export type Query<N extends string, T extends QueryResponse<unknown, N>, V extends Variables | undefined> = string
+export type Query<N extends string, _T extends QueryResponse<unknown, N>, _V extends Variables | undefined> = string
 
-export const userByIdQuery: Query<'userById', UserByIdResponse<UserId>, {userId: UserId}> = `
+export const userByIdQuery: Query<'userById', UserByIdResponse<UserId>, { userId: UserId }> = `
 query ($userId: String!) {
   userById(userId: $userId) {
     id
@@ -219,10 +217,12 @@ export interface Config {
   headers?: HeadersInit
 }
 
-export const exec = (config: Config) => async <
-  T, N extends string,
-  R extends QueryResponse<T, N>,
-  V extends Variables,
->(n: N, q: Query<N, R, V>, v: V): Promise<T> => {
-  return ((await request(config.url, q, v, config.headers)))[n]
-}
+export const exec =
+  (config: Config) =>
+  async <T, N extends string, R extends QueryResponse<T, N>, V extends Variables>(
+    n: N,
+    q: Query<N, R, V>,
+    v: V,
+  ): Promise<T> => {
+    return (await request<R, Variables>(config.url, q, v, config.headers))[n]
+  }

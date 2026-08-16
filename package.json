@@ -15,39 +15,40 @@
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
   "types": "./esm/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./esm/index.d.ts",
+      "import": "./esm/index.js",
+      "import-sync": "./esm/index.js",
+      "require": "./cjs/index.js"
+    }
+  },
   "files": [
     "cjs",
     "esm"
   ],
   "scripts": {
-    "lint": "ts-standard",
-    "fix": "ts-standard --fix",
+    "lint": "biome check",
+    "fix": "biome check --write",
     "build": "run-s build:esm build:cjs",
     "build:esm": "tsc -p ./tsconfig.esm.json",
     "build:cjs": "tsc -p ./tsconfig.cjs.json",
     "test": "ts-node ./tests/index.ts"
   },
   "dependencies": {
-    "graphql-request": "^4.0.0"
+    "graphql-request": "^7.4.0"
   },
   "devDependencies": {
-    "@types/node": "^17.0.17",
-    "@typescript-eslint/parser": "^4.33.0",
-    "eslint": "^7.32.0",
-    "graphql": "^16.3.0",
-    "npm-run-all": "^4.1.5",
-    "ts-node": "^10.5.0",
-    "ts-standard": "^11.0.0",
-    "tslib": "^2.3.1",
-    "typescript": "^4.5.5"
+    "@biomejs/biome": "^2.5.8",
+    "@types/node": "^24.13.3",
+    "graphql": "^17.0.2",
+    "npm-run-all2": "^9.0.3",
+    "ts-node": "^10.9.2",
+    "tslib": "^2.8.1",
+    "typescript": "^6.0.3"
   },
   "peerDependencies": {
-    "graphql": ">=14, <17"
+    "graphql": ">=17 <18"
   },
-  "ts-standard": {
-    "project": [
-      "./tsconfig.json",
-      "./tests/tsconfig.json"
-    ]
-  }
+  "packageManager": "pnpm@11.22.0+sha512.1ff870c4c6133dfd88fb2afc46dd13d47f09c9794b438c6fdb47ca98caf3bc16381ee0be93a091b8e3824cf01f889f46d7d9e20910fb0be1ab0fb5baa80dd621"
 }
