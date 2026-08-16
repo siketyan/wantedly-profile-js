@@ -1,5 +1,5 @@
 import { request, type Variables } from 'graphql-request'
-import type { QueryResponse, UserByIdResponse, UserId } from './model'
+import type { QueryResponse, UserByIdResponse, UserId } from './model.js'
 
 export type Query<N extends string, _T extends QueryResponse<unknown, N>, _V extends Variables | undefined> = string
 

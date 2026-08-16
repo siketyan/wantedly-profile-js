@@ -53,8 +53,6 @@ jobs:
           name: dist
 
       - uses: pnpm/action-setup@v6.0.10
-        with:
-          version: 11
 
       - uses: actions/setup-node@v7.0.0
         with:

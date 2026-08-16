@@ -1,8 +1,8 @@
-import { exec, type Config as GqlConfig, userByIdQuery } from './graphql'
-import type { User, UserId } from './model'
+import { exec, type Config as GqlConfig, userByIdQuery } from './graphql.js'
+import type { User, UserId } from './model.js'
 
-export * from './graphql'
-export * from './model'
+export * from './graphql.js'
+export * from './model.js'
 
 export interface Config {
   graphql: GqlConfig
