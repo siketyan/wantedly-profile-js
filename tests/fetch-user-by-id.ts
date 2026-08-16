@@ -1,6 +1,6 @@
 import { equal } from 'node:assert'
 
-import { Client } from '../src'
+import { Client } from 'wantedly-profile'
 
 // https://www.wantedly.com/siketyan
 const userId = '79008489'
